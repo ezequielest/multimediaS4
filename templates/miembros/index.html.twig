@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<h3>Lista de los miembros de cielos abiertos</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for miembro in miembros %}
+    <tr>
+      <th scope="row">{{miembro.id}}</th>
+      <td>{{miembro.nombre}}</td>
+      <td>{{miembro.apellido}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

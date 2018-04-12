@@ -1,0 +1,31 @@
+_errors:
+    resource: '@TwigBundle/Resources/config/routing/errors.xml'
+    prefix: /_error
+
+index:
+    path: /
+    controller: App\Controller\ActividadesController::new
+
+# miembros_index:
+#     path: /miembros
+#     controller: App\Controller\MiembrosController::show
+
+# miembros_new:
+#     path: /miembros/new
+#     controller: App\Controller\MiembrosController::new
+
+# actividades_index:
+#     path: /actividades
+#     controller: App\Controller\ActividadesController::index
+
+# actividades_new:
+#     path: /actividades/new
+#     controller: App\Controller\ActividadesController::new
+
+# listaActividadesAjax:
+#     path: /actividades/listaActividadesAjax
+#     controller: App\Controller\ActividadesController::listaActividadesAjax
+
+# generarListaMultimedia:
+#     path: /actividades/generarListaMultimedia
+#     controller: App\Controller\ActividadesController::generarListaMultimedia

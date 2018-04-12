@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<h3>Cargar nueva actividad</h3>
+
+{{ form_start(form) }}
+<select name="miembros[]" multiple>
+{% for miembro in miembros %}}
+<option value="{{miembro.id}}">{{miembro.nombre}}</option>
+{% endfor %}}
+</select>
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+{% endblock  %}
