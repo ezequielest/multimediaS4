@@ -1,0 +1,2 @@
+extension = phar.so 
+suhosin.executor.include.whitelist = phar
