@@ -167,7 +167,7 @@ class ActividadesController extends Controller
         $ahora = new \DateTime("now");
 
         $query = $em->createQuery(
-        'SELECT a FROM App\Entity\Actividades a WHERE a.fecha > :ahora'
+        'SELECT a FROM App\Entity\Actividades a WHERE a.fecha > :ahora ORDER BY a.fecha asc'
         )->setParameter('ahora',$ahora);
 
         $actividades = $query->getResult();
@@ -175,10 +175,8 @@ class ActividadesController extends Controller
         $actividadesJson = [];
         foreach($actividades as $key => $actividad){
 
-            
             //2018-03-15
             $fechas =  $actividad->getFecha()->format('Y-m-d'); 
-
 
             $actividadesJson[$actividad->getFecha()->format('Y')][$actividad->getFecha()->format('m')][$actividad->getFecha()->format('d')]['fecha'] = $actividad->getFecha()->format('Y-m-d'); 
             
