@@ -175,12 +175,10 @@ class ActividadesController extends Controller
         $actividadesJson = [];
         foreach($actividades as $key => $actividad){
 
-            
             //2018-03-15
             $fechas =  $actividad->getFecha()->format('Y-m-d'); 
 
-
-            $actividadesJson[$actividad->getFecha()->format('Y')][$actividad->getFecha()->format('m')][$actividad->getFecha()->format('d')]['fecha'] = $actividad->getFecha()->format('Y-m-d'); 
+            $actividadesJson[$actividad->getFecha()->format('Y')][$actividad->getFecha()->format('m')][$key][$actividad->getFecha()->format('d')]['fecha'] = $actividad->getFecha()->format('Y-m-d'); 
             
             $miembros = $actividad->getMiembros();
 
