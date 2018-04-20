@@ -13,8 +13,9 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Actividad</th>
-      <th scope="col">Lugar</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Controla</th>
+      <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -22,8 +23,11 @@
     <tr>
       <th scope="row">{{actividad.id}}</th>
       <td>{{actividad.nombre}}</td>
-      <td>{{actividad.lugar}}</td>
-      <td>@mdo</td>
+      <td>{{actividad.fecha | date('Y-m-d') }}</td>
+      {% for miembro in actividad.getMiembros() %}
+      <td>{{ miembro.getNombre() }}</td>
+      {% endfor %}
+      <td><a class="btn btn-danger">x</a></td>
     </tr>
     {% endfor %}
   </tbody>
