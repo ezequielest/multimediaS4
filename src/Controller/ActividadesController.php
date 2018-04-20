@@ -185,7 +185,7 @@ class ActividadesController extends Controller
             $miembros = $actividad->getMiembros();
 
             foreach($miembros as $miembro){
-                $actividadesJson[$actividad->getFecha()->format('Y')][$actividad->getFecha()->format('m')][$actividad->getFecha()->format('d')]['nombre'] = $miembro->getNombre(); 
+                $actividadesJson[$actividad->getFecha()->format('Y')][$actividad->getFecha()->format('m')][$key][$actividad->getFecha()->format('d')]['nombre'] = $miembro->getNombre(); 
             }
 
         }
