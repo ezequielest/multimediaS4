@@ -3,3 +3,4 @@
 /sass/
 /node_modules/
 /var/
+*.env

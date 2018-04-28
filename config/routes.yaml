@@ -25,3 +25,9 @@ listaActividadesAjax:
 generarListaMultimedia:
     path: /actividades/generarListaMultimedia
     controller: App\Controller\ActividadesController::generarListaMultimedia
+
+eliminar_actividad:
+    path: /actividades/{id}/eliminar_actividad
+    controller: App\Controller\ActividadesController::eliminar_actividad
+
+    

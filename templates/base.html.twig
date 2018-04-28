@@ -48,7 +48,9 @@
         <div class="container">
             {% block body %}{% endblock %}
         </div>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+        <script src="{{ asset('js/jquery331.js')}}"></script>
+        {% endblock %}
     <footer>Cielos Abiertos</footer>
     </body>
 </html>

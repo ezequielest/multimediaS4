@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -30,7 +31,7 @@ class ActividadesController extends Controller
 
         $actividades = $this->getDoctrine()
             ->getRepository(Actividades::class)
-            ->findAll();
+            ->findBy([],['fecha' => 'ASC']);
 
         return $this->render('actividades/index.html.twig', array(
             'actividades' => $actividades,
@@ -82,11 +83,12 @@ class ActividadesController extends Controller
                 'class' => 'form-control'
             )
         ))
-        ->add('fecha', DateTimeType::class, array(
+        ->add('fecha', DateType::class, array(
             'placeholder' => array(
                 'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
                 'hour' => 'Hour', 'minute' => 'Minute', 'second' => 'Second',
             ),
+            'widget' => 'single_text',
         ))
         /*->add('miembros', ChoiceType::class,[
             'choices' => [
@@ -140,6 +142,19 @@ class ActividadesController extends Controller
 
     }
 
+    public function eliminar_actividad(Request $request, $id= null){
+        
+        $em = $this->getDoctrine()->getManager();
+
+        $actividad = $em->getRepository(Actividades::class)->findOneById($id);
+
+        $em->remove($actividad);
+        $em->flush();
+
+        return $this->redirectToRoute('actividades_index');
+
+    }
+
     public function generarListaMultimedia()
     {
         $em = $this->getDoctrine()->getManager();
@@ -178,12 +193,14 @@ class ActividadesController extends Controller
             //2018-03-15
             $fechas =  $actividad->getFecha()->format('Y-m-d'); 
 
-            $actividadesJson[$actividad->getFecha()->format('Y')][$actividad->getFecha()->format('m')][$key][$actividad->getFecha()->format('d')]['fecha'] = $actividad->getFecha()->format('Y-m-d'); 
+            $actividadesJson[$actividad->getFecha()->format('Y')][$actividad->getFecha()->format('m')]
+            [$key][$actividad->getFecha()->format('d')][$key]['fecha'] = $actividad->getFecha()->format('Y-m-d'); 
             
             $miembros = $actividad->getMiembros();
 
             foreach($miembros as $miembro){
-                $actividadesJson[$actividad->getFecha()->format('Y')][$actividad->getFecha()->format('m')][$key][$actividad->getFecha()->format('d')]['nombre'] = $miembro->getNombre(); 
+                $actividadesJson[$actividad->getFecha()->format('Y')][$actividad->getFecha()->format('m')]
+                [$key][$actividad->getFecha()->format('d')][$key]['nombre'] = $miembro->getNombre(); 
             }
 
         }
