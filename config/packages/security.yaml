@@ -1,13 +1,25 @@
 security:
     # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+        in_memory: 
+            memory:
+                    users:
+                        ezequiel:
+                            password: 4739
+                            roles: 'ROLE_USER'
+                        admin:
+                            password: 1234
+                            roles: 'ROLE_ADMIN'
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+        
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: ~
+            http_basic: ~
 
             # activate different ways to authenticate
 
@@ -19,4 +31,5 @@ security:
 
     # config/packages/security.yaml
     access_control:
+        - { path: ^/, roles: [ROLE_ADMIN, ROLE_USER]}
         - { path: ^/actividades/listaActividadesAjax, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [POST, GET] }

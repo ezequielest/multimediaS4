@@ -5,8 +5,11 @@
 
 <div class="row">
     <div class="col-md-3">
-        <label>Miembro</label>
-        <select>
+        <label>Miembros</label>
+        <select name="miembro1[]">
+            <option value="1">tst</option>
+        </select>
+        <select name="miembro2[]">
             <option value="1">tst</option>
         </select>
     </div>
@@ -17,10 +20,20 @@
 </div>
 <div class="row">
     <div class="col-md">
-        <button class="btn btn-primary">+</button>
+        <button id="" class="btn btn-primary">+</button>
     </div>
 </div>
 
+
+
+{% endblock  %}
+
+
+{% block javascripts %}
+
+    {{parent()}}
+
+    <script></script>
 
 
 {% endblock  %}

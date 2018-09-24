@@ -22,6 +22,10 @@ listaActividadesAjax:
     path: /actividades/listaActividadesAjax
     controller: App\Controller\ActividadesController::listaActividadesAjax
 
+getActividadesAjax:
+    path: /actividades/getActividadesAjax
+    controller: App\Controller\ActividadesController::getActividadesAjax
+
 generarListaMultimedia:
     path: /actividades/generarListaMultimedia
     controller: App\Controller\ActividadesController::generarListaMultimedia

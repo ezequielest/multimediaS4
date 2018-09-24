@@ -6004,3 +6004,12 @@ a.text-dark:focus, a.text-dark:hover {
 
 .container {
   margin-top: 20px; }
+
+#containerPrincipal {
+  height: calc(100vh - 110px); }
+
+footer {
+  height: 35px;
+  text-align: center;
+  background: #000;
+  color: #fff; }

@@ -25,10 +25,13 @@
     <tr>
       <th scope="row">{{actividad.id}}</th>
       <td>{{actividad.nombre}}</td>
-      <td>{{actividad.fecha | date('Y-m-d') }}</td>
+      <td>{{actividad.fecha | date('d/m/Y') }}</td>
+      <td>
       {% for miembro in actividad.getMiembros() %}
-      <td>{{ miembro.getNombre() }}</td>
+      <label class="btn btn-outline-primary">{{ miembro.getNombre() }}</label>
       {% endfor %}
+      </td>
+      
       
       <td><a href="{{ path('eliminar_actividad',{'id': actividad.id}) }}" class="btnEliminarActividad btn btn-danger">x</a></td>
       

@@ -217,6 +217,93 @@ class ActividadesController extends Controller
 
     }
 
+    /**
+     * @Route("/actividades/listaActividadesAjax")
+     */
+    public function getActividadesAjax()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /*$actividades = $this->getDoctrine()
+            ->getRepository(Actividades::class)
+            ->findAll();*/
+        $ahora = new \DateTime("now");
+
+        //BUSCO ACTIVIDADES FUTURAS
+        $query = $em->createQuery(
+        'SELECT a FROM App\Entity\Actividades a WHERE a.fecha > :ahora ORDER BY a.fecha asc'
+        )->setParameter('ahora',$ahora);
+
+        $actividades = $query->getResult();
+
+        //BUSCO FECHAS FUTURAS
+        $query = $em->createQuery(
+            'SELECT a.fecha FROM App\Entity\Actividades a WHERE a.fecha > :ahora GROUP BY a.fecha ORDER BY a.fecha asc'
+            )->setParameter('ahora',$ahora);
+    
+        $meses = $query->getResult();
+
+        $actividadPorMes = [];
+        foreach ($meses as $mes){
+            $fecha = $mes['fecha']->format('Y-m-d');
+            
+            $actividadesArray = []; 
+            foreach($actividades as $key => $act){
+                $fechaActividad =  $act->getFecha()->format('Y-m-d');
+
+                if ($fecha == $fechaActividad){
+                    $miembros = $act->getMiembros();
+
+                    $miembrosArray = [];
+                    foreach($miembros as $miembro){
+                    
+                        $oMiembro = array(
+                            'nombre' => $miembro->getNombre()
+                        );
+
+                        array_push($miembrosArray, $oMiembro);
+                    }
+
+                    $descripcion = 'Descripcion de la actividad';
+                    $lugar = 'Lugar de la actividad';
+                    $titulo = 'Domingo';
+                    $especial = true;
+                                
+                    $oActividad = array(
+                        'descripcion' => $descripcion,
+                        'lugar' => $lugar,
+                        'titulo' => $titulo,
+                        'especial' => $especial,
+                        'miembros'  => $miembrosArray
+                    );
+
+                    array_push($actividadesArray, $oActividad);
+                }
+
+            }
+            $oActividadesPorMes = array(
+                'fecha' => $fecha,
+                'mes' =>  $act->getFecha()->format('m'),
+                'actividades' => $actividadesArray
+            );
+
+            array_push($actividadPorMes, $oActividadesPorMes);
+
+        }
+
+        $response = new Response();
+    
+        $response->setContent(json_encode(array(
+            $actividadPorMes,
+        )));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+        return $response;
+
+    }
+
+
 
 
 
